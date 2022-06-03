@@ -1,0 +1,27 @@
+﻿@model Stock
+<head>
+     <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+     <script>
+        let connection = new signalR.HubConnectionBuilder().withUrl("/stock").build();
+         
+         connection.on('SetConnectionId', data => {
+                console.log("ConnectionID : "+data);
+                var result=connection.invoke('ConnectGroup','@Model.Name',data);
+                console.log(result);
+
+        });   
+
+        connection.on('ChangeStocValue', data => {
+            console.log(JSON.stringify(data));
+               alert("New Price : "+data.value +" ₺");
+               document.getElementById("stocValue").innerHTML=data.value;
+        });
+
+        connection.start()
+     </script>    
+</head>
+ <div class="container">
+    <div class="jumbotron">
+        <h3>Moneda = @Model.Name : <span id="stocValue">@Model.Value</span> ₺</h3>
+    </div>
+ </div>

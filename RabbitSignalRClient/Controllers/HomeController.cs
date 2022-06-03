@@ -11,6 +11,13 @@ namespace RabbitSignalRClient.Controllers
 {
     public class HomeController : Controller
     {
+
+        public static List<Stock> stocList = new List<Stock>()
+        {
+            new Stock(){ID=1,Name="NetasTelekom",Value=Decimal.Parse("14.56")},
+            new Stock(){ID=2,Name="Bitcoin",Value=Decimal.Parse("41,583.99")},
+            new Stock(){ID=3,Name="Ethereum",Value=Decimal.Parse("1863.92")}
+        };
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -18,9 +25,16 @@ namespace RabbitSignalRClient.Controllers
             _logger = logger;
         }
 
+        [HttpPost]
+        public IActionResult Detail(int ID)
+        {
+            Stock stock = stocList.FirstOrDefault(s => s.ID == ID);
+            return View(stock);
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(stocList);
         }
 
         public IActionResult Privacy()
