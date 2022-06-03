@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitmqSignalR", "RabbitmqSignalR\RabbitmqSignalR.csproj", "{22B813C4-866C-47C0-BA25-6562D909592E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitSignalRClient", "RabbitSignalRClient\RabbitSignalRClient.csproj", "{4C799AF3-52FF-4954-B113-5A5705D9B122}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22B813C4-866C-47C0-BA25-6562D909592E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B813C4-866C-47C0-BA25-6562D909592E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B813C4-866C-47C0-BA25-6562D909592E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B813C4-866C-47C0-BA25-6562D909592E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C799AF3-52FF-4954-B113-5A5705D9B122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C799AF3-52FF-4954-B113-5A5705D9B122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C799AF3-52FF-4954-B113-5A5705D9B122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C799AF3-52FF-4954-B113-5A5705D9B122}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF96F8F1-CDEF-4D36-823A-42E300BBFE45}
+	EndGlobalSection
+EndGlobal
