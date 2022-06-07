@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tfqL5eIyKYD/ctssdirz5vSPYi0NxONX+0E9XC83ql1ZmnXDPsvvJfdpbgOuFXfCwUKbZaIoyumt93iItZd7qw==",
+  "dgSpecHash": "9KrQTQX+0dBfOKiQgDRu+KIobkkQjUacBZa1GCDKpr1/88KjZm/RK7k4SSzwEKkPqJ5RZyk2l95s/SRDKsirAg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Camilo Marín\\Documents\\Uis\\IS3\\RabbitMQ - Basic\\RabbitmqSignalR\\RabbitmqSignalR\\RabbitmqSignalR.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Camilo Marín\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.14.0\\microsoft.visualstudio.azure.containers.tools.targets.1.14.0.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\rabbitmq.client\\6.3.0\\rabbitmq.client.6.3.0.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",

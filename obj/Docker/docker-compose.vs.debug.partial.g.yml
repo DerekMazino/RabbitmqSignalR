@@ -1,0 +1,57 @@
+version: '3.4'
+
+services:
+  rabbitmqsignalr:
+    image: rabbitmqsignalr:dev
+    container_name: RabbitmqSignalR_1
+    build:
+      target: base
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "RabbitmqSignalR"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
+      - NUGET_FALLBACK_PACKAGES=
+    volumes:
+      - C:\Users\Camilo Marín\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR\RabbitmqSignalR:/app
+      - C:\Users\Camilo Marín\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR:/src
+      - C:\Users\Camilo Marín\vsdbg\vs2017u5:/remote_debugger:rw
+      - C:\Users\Camilo Marín\.nuget\packages\:/root/.nuget/packages:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /root/.nuget/packages  \"/app/bin/Debug/netcoreapp3.1/RabbitmqSignalR.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+    tty: true
+  rabbitsignalrclient:
+    image: rabbitsignalrclient:dev
+    container_name: RabbitSignalRClient_1
+    build:
+      target: base
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "RabbitSignalRClient"
+    environment:
+      - DOTNET_USE_POLLING_FILE_WATCHER=1
+      - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
+      - NUGET_FALLBACK_PACKAGES=
+    volumes:
+      - C:\Users\Camilo Marín\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR\RabbitSignalRClient:/app
+      - C:\Users\Camilo Marín\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR:/src
+      - C:\Users\Camilo Marín\vsdbg\vs2017u5:/remote_debugger:rw
+      - C:\Users\Camilo Marín\.nuget\packages\:/root/.nuget/packages:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /root/.nuget/packages  \"/app/bin/Debug/netcoreapp3.1/RabbitSignalRClient.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+    tty: true

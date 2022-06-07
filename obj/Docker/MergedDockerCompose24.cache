@@ -1,0 +1,64 @@
+services:
+  rabbitmq3:
+    hostname: rabbitmq3
+    image: rabbitmq:3.10-management
+    labels:
+      NAME: rabbitmq3
+    ports:
+    - published: 4369
+      target: 4369
+    - published: 5671
+      target: 5671
+    - published: 5672
+      target: 5672
+    - published: 15671
+      target: 15671
+    - published: 15672
+      target: 15672
+    - published: 25672
+      target: 25672
+  rabbitmqsignalr:
+    build:
+      context: C:\Users\Camilo Marín\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitmqSignalR/Dockerfile
+    depends_on:
+      rabbitmq3:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '9100'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: rabbitmqsignalr
+    ports:
+    - published: 5001
+      target: 80
+    - target: 80
+    - published: 5000
+      target: 443
+    - target: 443
+    restart: always
+    volumes:
+    - C:\Users\Camilo Marín\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Camilo Marín\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  rabbitsignalrclient:
+    build:
+      context: C:\Users\Camilo Marín\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitSignalRClient/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '9000'
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: rabbitsignalrclient
+    ports:
+    - published: 9001
+      target: 80
+    - target: 80
+    - published: 9000
+      target: 443
+    - target: 443
+    restart: always
+    volumes:
+    - C:\Users\Camilo Marín\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR\RabbitSignalRClient\https\aspnetapp.pfx:/https/aspnetapp.pfx:ro
+    - C:\Users\Camilo Marín\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Camilo Marín\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+version: '3.4'

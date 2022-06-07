@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MXUowrc/rmMifdpTUYAy215sXgJpoRkzX5T992A95LTotep7W3mueLrv8pTa5IEPQSckpcL74bSuhABYTo2m6g==",
+  "dgSpecHash": "aYc3m5rjWz92cqt3SBwR1ADYnIpzlUYH0+WKHYHx8O1JWmMKirmTw4VAsQzjrR7+gxc3DN+raYY0bbO+K6+GXA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Camilo Marín\\Documents\\Uis\\IS3\\RabbitMQ - Basic\\RabbitmqSignalR\\RabbitSignalRClient\\RabbitSignalRClient.csproj",
   "expectedPackageFiles": [
@@ -35,6 +35,7 @@
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\Camilo Marín\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.14.0\\microsoft.visualstudio.azure.containers.tools.targets.1.14.0.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",
     "C:\\Users\\Camilo Marín\\.nuget\\packages\\system.componentmodel.annotations\\4.5.0\\system.componentmodel.annotations.4.5.0.nupkg.sha512",

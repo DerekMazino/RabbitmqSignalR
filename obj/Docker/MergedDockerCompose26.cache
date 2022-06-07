@@ -1,0 +1,140 @@
+name: dockercompose8164397257750893466
+services:
+  rabbitmq3:
+    hostname: rabbitmq3
+    image: rabbitmq:3.10-management
+    labels:
+      NAME: rabbitmq3
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 4369
+      published: "4369"
+      protocol: tcp
+    - mode: ingress
+      target: 5671
+      published: "5671"
+      protocol: tcp
+    - mode: ingress
+      target: 5672
+      published: "5672"
+      protocol: tcp
+    - mode: ingress
+      target: 25672
+      published: "25672"
+      protocol: tcp
+    - mode: ingress
+      target: 15671
+      published: "15671"
+      protocol: tcp
+    - mode: ingress
+      target: 15672
+      published: "15672"
+      protocol: tcp
+  rabbitmqsignalr:
+    build:
+      context: C:\Users\Camilo MarÃ­n\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitmqSignalR/Dockerfile
+    depends_on:
+      rabbitmq3:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "5000"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: rabbitmqsignalr
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "5001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "5000"
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: bind
+      source: C:\Users\Camilo MarÃ­n\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Camilo MarÃ­n\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  rabbitmqsignalrservice:
+    build:
+      context: C:\Users\Camilo MarÃ­n\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitmqSignalRService/Dockerfile
+    depends_on:
+      rabbitmq3:
+        condition: service_started
+      rabbitsignalrclient:
+        condition: service_started
+    image: rabbitmqsignalrservice
+    networks:
+      default: null
+    restart: always
+  rabbitsignalrclient:
+    build:
+      context: C:\Users\Camilo MarÃ­n\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitSignalRClient/Dockerfile
+    container_name: rabbitsignalrclient
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "9000"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: rabbitsignalrclient
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "9001"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "9000"
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: bind
+      source: C:\Users\Camilo MarÃ­n\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR\RabbitSignalRClient\https\aspnetapp.pfx
+      target: /https/aspnetapp.pfx
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Camilo MarÃ­n\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Camilo MarÃ­n\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  default:
+    name: dockercompose8164397257750893466_default

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RabbitmqSignalRService": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

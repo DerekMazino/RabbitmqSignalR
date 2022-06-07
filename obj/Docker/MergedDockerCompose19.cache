@@ -1,0 +1,115 @@
+services:
+  rabbitmq3:
+    container_name: rabbitmqbroker
+    environment:
+      RABBITMQ_DEFAULT_PASS: mypassword
+      RABBITMQ_DEFAULT_USER: myuser
+    image: rabbitmq:3.10-management
+    ports:
+    - published: 5672
+      target: 5672
+    - published: 15672
+      target: 15672
+  rabbitmqsignalr:
+    build:
+      context: C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitmqSignalR/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: RabbitmqSignalR
+      target: base
+    container_name: RabbitmqSignalR_1
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '9100'
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: ''
+    image: rabbitmqsignalr:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/netcoreapp3.1/RabbitmqSignalR.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 9101
+      target: 80
+    - target: 80
+    - published: 9100
+      target: 443
+    - target: 443
+    tty: true
+    volumes:
+    - C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR\RabbitmqSignalR:/app:rw
+    - C:\Users\Camilo MarÝn\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Camilo MarÝn\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Camilo MarÝn\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\Camilo MarÝn\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR:/src:rw
+  rabbitmqsignalrservice:
+    build:
+      context: C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitmqSignalRService/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: RabbitmqSignalRService
+      target: base
+    container_name: RabbitmqSignalRService_1
+    entrypoint: tail -f /dev/null
+    environment:
+      NUGET_FALLBACK_PACKAGES: ''
+    image: rabbitmqsignalrservice:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/netcoreapp3.1/RabbitmqSignalRService.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    tty: true
+    volumes:
+    - C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR\RabbitmqSignalRService:/app:rw
+    - C:\Users\Camilo MarÝn\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Camilo MarÝn\.nuget\packages:/root/.nuget/packages:ro
+  rabbitsignalrclient:
+    build:
+      context: C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR
+      dockerfile: RabbitSignalRClient/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: RabbitSignalRClient
+      target: base
+    container_name: RabbitSignalRClient_1
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: '9000'
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: ''
+    image: rabbitsignalrclient:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages  "/app/bin/Debug/netcoreapp3.1/RabbitSignalRClient.dll"'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - published: 9001
+      target: 80
+    - target: 80
+    - published: 9000
+      target: 443
+    - target: 443
+    tty: true
+    volumes:
+    - C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR\RabbitSignalRClient:/app:rw
+    - C:\Users\Camilo MarÝn\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Camilo MarÝn\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Camilo MarÝn\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Users\Camilo MarÝn\.nuget\packages:/root/.nuget/packages:ro
+    - C:\Users\Camilo MarÝn\Documents\Uis\IS3\RabbitMQ - Basic\RabbitmqSignalR:/src:rw
+version: '3.4'

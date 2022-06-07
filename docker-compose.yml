@@ -1,0 +1,83 @@
+version: '3.4'
+
+services:
+  rabbitmq3:
+    hostname: "rabbitmq3"
+    labels:
+      NAME: "rabbitmq3"
+    image: rabbitmq:3.10-management
+    networks:
+      - my-net
+    #environment:
+    #        - RABBITMQ_DEFAULT_USER=myuser
+    #        - RABBITMQ_DEFAULT_PASS=mypassword
+    ports:
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
+      - "25672:25672"
+      - "15671:15671"
+      - "15672:15672"
+  rabbitsignalrclient:
+    image: ${DOCKER_REGISTRY-}rabbitsignalrclient
+    container_name: rabbitsignalrclient
+    build:
+      context: .
+      dockerfile: RabbitSignalRClient/Dockerfile
+    restart: always
+    networks:
+      - my-net
+    ports:
+      - "9000:443"
+      - "9001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=9000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+  rabbitmqsignalr:
+    image: ${DOCKER_REGISTRY-}rabbitmqsignalr
+    build:
+      context: .
+      dockerfile: RabbitmqSignalR/Dockerfile
+    restart: always
+    networks:
+      - my-net
+    ports:
+      - "5000:443"
+      - "5001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    depends_on:
+      - "rabbitmq3"
+  rabbitmqsignalrservice:
+    image: ${DOCKER_REGISTRY-}rabbitmqsignalrservice
+    build:
+      context: .
+      dockerfile: RabbitmqSignalRService/Dockerfile
+    restart: always
+    networks:
+      - my-net
+    environment:
+      #- ASPNETCORE_ENVIRONMENT=Development
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_HTTPS_PORT=5000
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=mypass123
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
+    depends_on:
+      - "rabbitmq3"
+      - "rabbitsignalrclient"
+networks:
+  my-net:
+    driver: bridge

@@ -2,7 +2,7 @@
 @model List<Stock>
     <div class="container">
     <div class="jumbotron">
-        <h3>Yatırımını Seç</h3>
+        <h3>Elija su inversión!</h3>
     </div>
     @using(Html.BeginForm("Detail","Home","FormMethod.Post"))
     {
@@ -12,9 +12,9 @@
                 <label for="female" style="width : 125px">
                     <input type="radio" name="ID" id="ID" value="@stoc.ID">@stoc.Name                                        
                 </label>
-                <b>Fiyat</b> : <label>@stoc.Value ₺</label>
+                <b>Inversión</b> : <label>@stoc.Value $</label>
             </div>            
         }
         <br>
-        <input type="submit" value="Satın Al" class="btn btn-success">
+        <input type="submit" value="Subscribir" class="btn btn-success">
     }</div>
